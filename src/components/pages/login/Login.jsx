@@ -2,12 +2,25 @@ import React, { useState } from "react";
 import { FiMail } from "react-icons/fi";
 import { FaKey } from "react-icons/fa";
 import { FaSignInAlt } from "react-icons/fa";
-import { MdOutlineErrorOutline } from "react-icons/md";
+import { MdOutlineErrorOutline, MdInfoOutline } from "react-icons/md";
+import { useLocation, useNavigate, Link } from "react-router";
+import toast from "react-hot-toast";
 
 const Login = () => {
   // states
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // navigation
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state;
+
+  // redirect to dashboard if user is already logged in
+  const token = localStorage.getItem("token");
+  if (token) {
+    navigate("/dashboard");
+  }
 
   // handle login form submission
   const handleLogin = (e) => {
@@ -46,6 +59,7 @@ const Login = () => {
     })
       .then((response) => {
         if (!response.ok) {
+          // set error message
           setError("Invalid email or password.");
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -53,11 +67,15 @@ const Login = () => {
       })
       .then((data) => {
         setLoading(false);
-        console.log(data);
         if (data.token) {
+          // set token and user email in localStorage
           localStorage.setItem("token", data.token);
-          alert("Login successful!");
+          localStorage.setItem("userEmail", data.email);
+          // redirect to dashboard or previous page
+          toast.success("Login successful!");
+          navigate(state?.from || "/dashboard");
         } else {
+          // set error message
           setError(data.message || "Login failed. Please try again.");
         }
       })
@@ -74,6 +92,12 @@ const Login = () => {
           <div className="alert alert-soft alert-error mt-4">
             <MdOutlineErrorOutline className="-mr-2" size={18} />
             {error}
+          </div>
+        )}
+        {state?.message && (
+          <div className="alert alert-soft alert-info mt-4">
+            <MdInfoOutline className="-mr-2" size={18} />
+            {state?.message}
           </div>
         )}
         <form className="mt-4" onSubmit={handleLogin}>
