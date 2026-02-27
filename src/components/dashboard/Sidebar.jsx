@@ -17,7 +17,7 @@ const Sidebar = () => {
     <div className="bg-base-300 col-span-2 m-4 rounded-3xl flex flex-10 flex-col gap-4 justify-between">
       <div className="flex-7 p-8 text-xl text-base-content/60">
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-2 text-base-content/80 font-bold text-3xl">
+          <div className="flex items-center gap-2 text-base-content/80 font-semibold text-3xl">
             <img src="/icon.png" alt="Icon" className="h-14" /> Donezo
           </div>
           <div className="mt-6 text-sm">MENU</div>
