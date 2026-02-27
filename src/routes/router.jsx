@@ -6,7 +6,11 @@ import PrivateRoutes from "../middlewares/PrivateRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello World</div>,
+    element: (
+      <PrivateRoutes>
+        <Dashboard />
+      </PrivateRoutes>
+    ),
   },
   {
     path: "/login",
