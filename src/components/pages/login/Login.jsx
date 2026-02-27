@@ -103,7 +103,7 @@ const Login = () => {
         <form className="mt-4" onSubmit={handleLogin}>
           <div className="">
             <span className="label">Email</span>
-            <label className="input validator rounded-lg">
+            <label className="input validator">
               <FiMail />
               <input
                 type="email"
@@ -119,7 +119,7 @@ const Login = () => {
           </div>
           <div className="mt-2">
             <span className="label">Password</span>
-            <label className="input rounded-lg">
+            <label className="input">
               <FaKey />
               <input
                 type="password"
@@ -133,14 +133,14 @@ const Login = () => {
           </div>
           <div className="mt-4 text-center">
             <button
-              className="btn btn-primary rounded-lg btn-block"
+              className="btn btn-primary btn-block"
               type="submit"
               disabled={loading}
             >
               {loading ? (
                 <span className="loading loading-bars loading-xs"></span>
               ) : (
-                <FaSignInAlt />
+                <FaSignInAlt size={16} />
               )}
               Login
             </button>
